@@ -33,6 +33,7 @@ Route::controller(UserController::class)->group(function(){
 
 Route::controller(SupplierController::class)->group(function(){
     Route::post('addsupplier','store');
+    Route::get('getsupplier','getData');
 })->middleware('auth:api');
 
 Route::controller(WarehouseController::class)->group(function(){

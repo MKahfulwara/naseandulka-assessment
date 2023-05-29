@@ -10,7 +10,10 @@ class WarehouseController extends Controller
 {
 	public function getData()
     {
-        $warehouses = Warehouse::all();
+        // $warehouses = Warehouse::all();
+        $warehouses = Warehouse::join('suppliers', 'warehouses.supplier_id', '=', 'suppliers.id')
+        ->select('warehouses.*', 'suppliers.name as supplier_name')
+        ->get();
 
         return response()->json([
             'status' => 'success',

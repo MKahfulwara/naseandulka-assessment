@@ -38,4 +38,15 @@ class SupplierController extends Controller
         return Response(['status' => 200,'message' => 'Supplier deleted Successfully'],200);
        
     }
+    public function getData()
+    {
+        $supplier = Supplier::all();
+        
+
+        return response()->json([
+            'status' => 'success',
+            'data' => $supplier,
+        ]);
+        return Response(['status' => 'success','data' => $supplier],200);
+    }
 }

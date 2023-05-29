@@ -11,7 +11,11 @@ class ProductController extends Controller
 {
     public function index()
     {
-        $products = Product::all();
+
+        $products = Product::join('suppliers', 'products.supplier_id', '=', 'suppliers.id')
+        ->join('warehouses', 'products.warehouse_id', '=', 'warehouses.id')
+        ->select('products.*', 'suppliers.name as supplier_name', 'warehouses.name as warehouse_name')
+        ->get();
         return Response(['status' => 'success','data' => $products],200);
     }
 
