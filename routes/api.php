@@ -6,7 +6,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\WarehouseController;
 use App\Http\Controllers\ProductController;
-
+use Illuminate\Support\Facades\Auth;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -31,13 +31,22 @@ Route::controller(UserController::class)->group(function(){
     Route::post('logout','userLogout');
 })->middleware('auth:api');
 
-Route::controller(SupplierController::class)->group(function(){
-    Route::post('addsupplier','store');
-    Route::get('getsupplier','getData');
-})->middleware('auth:api');
+// Route::controller(SupplierController::class)->group(function(){
+//     Route::post('addsupplier','store');
+//     Route::get('getsuppliers','getData');
+// })->middleware('auth:api');
+
+// use App\Http\Controllers\SupplierController;
+
+Route::middleware('auth:api')->group(function () {
+    Route::post('addsupplier', [SupplierController::class, 'store']);
+    Route::get('getsuppliers', [SupplierController::class, 'getData']);
+});
+
+
 
 Route::controller(WarehouseController::class)->group(function(){
-    Route::get('getallwarehouse','getData');
+    Route::get('getallwarehouses','getData');
     Route::post('addwarehouse','store');
 })->middleware('auth:api');
 
